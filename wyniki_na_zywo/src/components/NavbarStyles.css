@@ -1,0 +1,19 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    background-color: #0D1282;
+    padding: 20px ;
+}
+#homePage, #logout{
+    width: 10%;
+    height: 10%;
+}
+#right_side_icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#right_side_icons li a{
+    list-style: none;
+
+}
