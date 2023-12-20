@@ -1,19 +1,146 @@
-nav{
+.navbar {
+    background-color: #0D1282;
+    padding: 16px;
     display: flex;
     justify-content: space-between;
-    background-color: #0D1282;
-    padding: 20px ;
+    align-items: center;
 }
-#homePage, #logout{
-    width: 10%;
-    height: 10%;
+
+.navbar-logo img {
+    height: auto; /* Zachowuje proporcje obrazu */
+    width: 175px; /* Szerokość logo dostosowana do proporcji 1353x511 */
 }
-#right_side_icons{
+
+.nav-item { /*ikony po prawej */
     display: flex;
     align-items: center;
+    padding: 8px;
+    margin-right: 10px; /* Odstęp między ikonami */
+    border-radius: 8px; /* Zaokrąglone krawędzie */
+    background-color: #0D1282; /* Kolor tła przed zmianą */
+    transition: background-color 0.3s, color 0.3s; /* Animacja zmiany koloru */
+}
+
+.nav-item span {
+    color: white; /* Kolor tekstu przed zmianą */
+    transition: color 0.3s; /* Animacja zmiany koloru tekstu */
+}
+
+.nav-item:hover {
+    background-color: white; /* Kolor tła po najechaniu */
+}
+
+.nav-item:hover span {
+    color: #0D1282; /* Kolor tekstu po najechaniu */
+}
+
+.icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px; /* Zwiększony odstęp między ikoną a tekstem */
+}
+
+.navbar-links {
+    display: flex; /* Domyślnie ikony są wyświetlane */
+}
+
+.menu-icon {
+    display: none; /* Domyślnie ikona menu jest ukryta */
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) { /* Punkt przełamania dla urządzeń mobilnych */
+    .navbar-links {
+        display: none; /* Ukrywa linki na urządzeniach mobilnych */
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #374df5;
+        width: 100%;
+    }
+
+    .navbar-links.active {
+        display: flex; /* Pokazuje linki, gdy menu jest aktywne */
+    }
+
+    .menu-icon {
+        display: block; /* Pokazuje ikonę menu na urządzeniach mobilnych */
+    }
+}
+
+.menu-icon img {
+    height: 24px;
+    width: 24px;
+}
+
+@media screen and (min-width: 768px) { /* Punkt przełamania dla większych ekranów */
+    .navbar-links {
+        display: flex;
+    }
+    .menu-icon {
+        display: none;
+    }
+}
+
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #0D1282;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-menu a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 767px) { /* Punkt przełamania dla urządzeń mobilnych */
+    .mobile-menu {
+        display: flex;
+    }
+}
+.search-bar {
+    flex-grow: 1;
+    display: flex;
     justify-content: center;
 }
-#right_side_icons li a{
-    list-style: none;
 
+.search-bar input {
+    width: 50%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none; /* Usuwa obramówkę po kliknięciu */
+}
+
+@media screen and (max-width: 768px) { /* Punkt przełamania dla urządzeń mobilnych */
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #374df5;
+        width: 100%;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .search-bar {
+        display: none; /* Ukrywa pasek wyszukiwania na urządzeniach mobilnych */
+    }
 }
