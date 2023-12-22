@@ -1,5 +1,6 @@
 // LoginForm.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Navbar from './Navbar'; // Import the Navbar component
 import './LoginForm.css'; // Add styling for the login form
 
@@ -16,7 +17,7 @@ const LoginForm = ({ onLogin, onRegister }) => {
   const handleRegister = () => {
     // Registration logic can be added here
     // For this example, the onRegister function is called when the "Register" button is clicked
-    onRegister();
+    //onRegister();
   };
 
   return (
@@ -46,7 +47,10 @@ const LoginForm = ({ onLogin, onRegister }) => {
           <button onClick={handleLogin}>Login</button>
         </div>
         <div>
-          <button onClick={handleRegister}>Register</button>
+          {/* Use Link to navigate to the /register page */}
+          <Link to="/register">
+            <button onClick={handleRegister}>Register</button>
+          </Link>
         </div>
       </div>
     </div>
