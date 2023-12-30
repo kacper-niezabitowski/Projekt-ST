@@ -1,0 +1,16 @@
+.match-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: auto; /* Dodaj ten styl, aby centrować tabelę */
+  }
+  
+  .table-header, .table-cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table-header {
+    background-color: #f2f2f2;
+  }
+  

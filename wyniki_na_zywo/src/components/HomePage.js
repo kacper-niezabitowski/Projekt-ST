@@ -1,8 +1,10 @@
-// src/components/Homepage.js
+// Homepage.js
+
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import LoginForm from './LoginForm';
 import FootballDataComponent from './FootballDataComponent';
+import './HomePage.css'; // Importuj plik ze stylami
 
 const Homepage = () => {
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
@@ -20,8 +22,7 @@ const Homepage = () => {
       <Navbar openLoginForm={openLoginForm} />
       <div className="homepage-content">
         <h1>Witaj przybyszu</h1>
-        <p>Tutaj będą bardzo ważne rzeczy</p>
-
+        <p></p>
         <FootballDataComponent />
       </div>
       {isLoginFormOpen && (
