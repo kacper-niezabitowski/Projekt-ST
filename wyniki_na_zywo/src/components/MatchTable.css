@@ -14,3 +14,24 @@
     background-color: #f2f2f2;
   }
   
+
+
+ul.emblems-list {
+  list-style: none;
+  padding: 0;
+  text-align: center; /* Wyśrodkuj elementy w poziomie */
+}
+
+ul.emblems-list li {
+  display: inline-block;
+  text-align: center; /* Wyśrodkuj tekst wewnątrz elementu li */
+  margin: 0 10px; /* Dodaj margines między emblemami */
+}
+
+ul.emblems-list img {
+  max-width: 50px; /* Ogranicz szerokość obrazu, aby zachować równowagę */
+  max-height: 50px; /* Ogranicz wysokość obrazu, aby zachować równowagę */
+  display: block; /* Ustaw obraz jako blok, aby wyśrodkować go wewnątrz elementu li */
+  margin: 0 auto; /* Wyśrodkuj obraz wewnątrz elementu li */
+}
+
