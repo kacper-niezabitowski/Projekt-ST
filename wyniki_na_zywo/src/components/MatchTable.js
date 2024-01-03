@@ -119,6 +119,7 @@ const MatchTable = ({ matches }) => {
         {teamInfo && (
           <div>
             <h2>{teamInfo.name}</h2>
+            <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} />
             <p>Founded: {teamInfo.founded}</p>
             <p>Club Colors: {teamInfo.clubColors}</p>
             <p>
