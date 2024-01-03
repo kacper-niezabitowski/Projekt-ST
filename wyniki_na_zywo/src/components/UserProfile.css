@@ -1,0 +1,12 @@
+/* Homepage.css */
+
+.homepage-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Wyśrodkowanie zawartości w pionie */
+    justify-content: center; /* Wyśrodkowanie zawartości w poziomie */
+    text-align: center; /* Opcjonalne: wyśrodkowanie tekstu */
+    margin: auto; /* Opcjonalne: wyśrodkowanie w poziomie */
+    max-width: 800px; /* Opcjonalne: ograniczenie szerokości zawartości */
+  }
+  
