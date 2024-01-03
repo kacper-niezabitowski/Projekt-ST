@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './MatchTable.css'; // Importuj plik ze stylami
 import axios from 'axios';
+import Modal from 'react-modal'; // Importuj Modal
+
+Modal.setAppElement('#root'); // Ustaw app element dla react-modal
 
 const MatchTable = ({ matches }) => {
   const [teamInfo, setTeamInfo] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false); // Stan modalu
+  const [selectedTeamId, setSelectedTeamId] = useState(null); // Stan dla zaznaczonego zespołu
 
   const fetchTeamInfo = async (teamId) => {
     try {
@@ -14,22 +19,31 @@ const MatchTable = ({ matches }) => {
       });
 
       setTeamInfo(response.data);
+      setModalOpen(true); // Otwórz modal po pobraniu danych
     } catch (error) {
       console.error('Error fetching team info:', error);
     }
   };
 
   useEffect(() => {
-    if (teamInfo === null && matches.length > 0) {
-      fetchTeamInfo(matches[0].homeTeam.id);
+    if (teamInfo === null && matches.length > 0 && selectedTeamId !== null) {
+      fetchTeamInfo(selectedTeamId);
     }
-  }, []);
+  }, [matches, teamInfo, selectedTeamId]);
+
+  const closeModal = () => {
+    setModalOpen(false); // Zamknij modal
+  };
+
+  const handleTeamClick = (teamId) => {
+    setSelectedTeamId(teamId); // Ustaw zaznaczony zespół
+  };
 
   const renderPlayersTable = () => {
     if (!teamInfo || !teamInfo.squad) {
       return null;
     }
-      
+
     return (
       <div>
         <h3>Players</h3>
@@ -56,7 +70,6 @@ const MatchTable = ({ matches }) => {
       </div>
     );
   };
-  
 
   return (
     <div className="match-table-container">
@@ -76,14 +89,14 @@ const MatchTable = ({ matches }) => {
             <tr key={match.id}>
               <td
                 className="table-cell"
-                onClick={() => fetchTeamInfo(match.homeTeam.id)}
+                onClick={() => handleTeamClick(match.homeTeam.id)}
                 style={{ cursor: 'pointer' }}
               >
                 {match.homeTeam.name}
               </td>
               <td
                 className="table-cell"
-                onClick={() => fetchTeamInfo(match.awayTeam.id)}
+                onClick={() => handleTeamClick(match.awayTeam.id)}
                 style={{ cursor: 'pointer' }}
               >
                 {match.awayTeam.name}
@@ -101,44 +114,49 @@ const MatchTable = ({ matches }) => {
         </tbody>
       </table>
 
-      {teamInfo && (
-        <div>
-          <br />
-          <h2>{teamInfo.name}</h2>
-          <p>Founded: {teamInfo.founded}</p>
-          <p>Club Colors: {teamInfo.clubColors}</p>
-          <p>Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a></p>
-          {/* Display other team information as needed */}
-          {teamInfo.runningCompetitions && (
-            <div>
-              <br />
-              <h3>Running Competitions</h3>
-              <ul className="emblems-list"> {/* Dodaj klasę dla wyśrodkowania */}
-                {teamInfo.runningCompetitions.map((competition) => (
-                  <li key={competition.id}>
-                    {competition.name} - {competition.type}
-                    <img src={competition.emblem} alt={`${competition.name} Emblem`} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+        {teamInfo && (
+          <div>
+            <h2>{teamInfo.name}</h2>
+            <p>Founded: {teamInfo.founded}</p>
+            <p>Club Colors: {teamInfo.clubColors}</p>
+            <p>
+              Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
+            </p>
+            {/* Display other team information as needed */}
+            {teamInfo.runningCompetitions && (
+              <div>
+                <br />
+                <h3>Running Competitions</h3>
+                <ul className="emblems-list">
+                  {teamInfo.runningCompetitions.map((competition) => (
+                    <li key={competition.id}>
+                      {competition.name} - {competition.type}
+                      <img src={competition.emblem} alt={`${competition.name} Emblem`} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-          {teamInfo.coach && (
-            <div>
-              <br />
-              <h3>Coach</h3>
-              <p>Name: {teamInfo.coach.name}</p>
-              <p>Date of Birth: {teamInfo.coach.dateOfBirth}</p>
-              <p>Nationality: {teamInfo.coach.nationality}</p>
-              <br />
-            </div>
-          )}
-          {renderPlayersTable()}
-          <br />
-          <br />
-        </div>
-      )}
+            {teamInfo.coach && (
+              <div>
+                <br />
+                <h3>Coach</h3>
+                <p>Name: {teamInfo.coach.name}</p>
+                <p>Date of Birth: {teamInfo.coach.dateOfBirth}</p>
+                <p>Nationality: {teamInfo.coach.nationality}</p>
+                <br />
+              </div>
+            )}
+            {renderPlayersTable()}
+            <br />
+            <br />
+            <button onClick={closeModal}>Close</button>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
