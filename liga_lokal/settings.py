@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -73,10 +74,21 @@ WSGI_APPLICATION = 'liga_lokal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'liga_lokal_database',
+        'USER': 'liga_lokal_database_user',
+        'PASSWORD': 'U3paDTGKV7NVwo9iCXg967i1TlxgG157',
+        'HOST': 'dpg-cmap5421hbls73cmn2g0-a.frankfurt-postgres.render.com',   # Domyślnie localhost
+        'PORT': '5432',                      # Domyślnie 5432 dla PostgreSQL
     }
 }
 
