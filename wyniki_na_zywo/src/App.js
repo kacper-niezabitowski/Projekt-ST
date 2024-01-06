@@ -6,7 +6,7 @@ import Homepage from './components/HomePage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import UserProfile from './components/UserProfile';
-
+import TeamPage from './components/TeamPage';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/team/:teamId" element={<TeamPage />} />
       </Routes>
     </Router>
   );
