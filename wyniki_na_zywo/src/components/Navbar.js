@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import './NavbarStyles.css'; // Załóżmy, że istnieje odpowiedni plik CSS
-// Import obrazów
+import './NavbarStyles.css';
 import HomeIcon from '../img/home.png';
 import HomeIcon2 from '../img/home_2.png';
 import LoginIcon from '../img/login.png';
@@ -19,6 +18,7 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchOptions, setSearchOptions] = useState([]);
     const [allTeams, setAllTeams] = useState([]);
+    const [selectedTeam, setSelectedTeam] = useState('');
 
     useEffect(() => {
         const fetchAllTeams = async () => {
@@ -40,6 +40,13 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
 
         fetchAllTeams();
     }, []);
+
+    useEffect(() => {
+        if (searchOptions.length === 1) {
+            // Jeśli jest tylko jedna opcja, automatycznie wybierz ten zespół
+            handleTeamSelect(searchOptions[0].id);
+        }
+    }, [searchOptions]);
 
     const getIcon = (iconName) => {
         switch (iconName) {
@@ -68,6 +75,7 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
     };
 
     const handleTeamSelect = (teamId) => {
+        setSelectedTeam(teamId);
         onTeamSelect(teamId);
     };
 
@@ -76,7 +84,7 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
             <div className="navbar-logo">
                 <img src={Logo} alt="Logo" />
             </div>
-            
+
             <div className="search-bar">
                 <input 
                     type="text" 
@@ -84,13 +92,24 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
                     value={searchTerm} 
                     onChange={handleSearchChange}
                 />
-                {searchOptions.length > 0 && (
-                    <select onChange={(e) => handleTeamSelect(e.target.value)}>
-                        {searchOptions.map(option => (
-                            <option key={option.id} value={option.id}>{option.name}</option>
-                        ))}
-                    </select>
-                )}
+                <div className="search-options" >
+                    {searchOptions.length > 0 && (
+                        <select
+                            value={selectedTeam}
+                            onChange={(e) => {
+                                // Sprawdź, czy wybrano opcję "Wybierz zespół"
+                                if (e.target.value !== "") {
+                                    handleTeamSelect(e.target.value);
+                                }
+                            }}
+                        >
+                            <option value="" disabled selected>Wybierz zespół</option>
+                            {searchOptions.map(option => (
+                                <option key={option.id} value={option.id}>{option.name}</option>
+                            ))}
+                        </select>
+                    )}
+                </div>
             </div>
 
             <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
