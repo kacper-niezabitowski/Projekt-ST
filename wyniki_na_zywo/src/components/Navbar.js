@@ -11,6 +11,9 @@ import SettingsIcon2 from '../img/settings_2.png';
 import MenuIcon from '../img/menu.png';
 import MenuIcon2 from '../img/menu_2.png';
 import Logo from '../img/logo.png';
+import { useTheme } from './ThemeContext';
+
+
 
 const Navbar = ({ openLoginForm, onTeamSelect }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,6 +22,8 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
     const [searchOptions, setSearchOptions] = useState([]);
     const [allTeams, setAllTeams] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState('');
+    const { isDarkMode, toggleTheme } = useTheme();
+
 
     useEffect(() => {
         const fetchAllTeams = async () => {
@@ -80,58 +85,61 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
     };
 
     return (
-        <header className="navbar">
-            <div className="navbar-logo">
-                <img src={Logo} alt="Logo" />
+        <header className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
+          <div className="navbar-logo">
+            <img src={Logo} alt="Logo" />
+          </div>
+      
+          <div className="search-bar">
+            <input 
+              type="text" 
+              placeholder="Szukaj drużyny..." 
+              value={searchTerm} 
+              onChange={handleSearchChange}
+            />
+            <div className="search-options">
+              {searchOptions.length > 0 && (
+                <select
+                  value={selectedTeam}
+                  onChange={(e) => {
+                    if (e.target.value !== "") {
+                      handleTeamSelect(e.target.value);
+                    }
+                  }}
+                >
+                  <option value="" disabled selected>Wybierz zespół</option>
+                  {searchOptions.map(option => (
+                    <option key={option.id} value={option.id}>{option.name}</option>
+                  ))}
+                </select>
+              )}
             </div>
-
-            <div className="search-bar">
-                <input 
-                    type="text" 
-                    placeholder="Szukaj drużyny..." 
-                    value={searchTerm} 
-                    onChange={handleSearchChange}
-                />
-                <div className="search-options" >
-                    {searchOptions.length > 0 && (
-                        <select
-                            value={selectedTeam}
-                            onChange={(e) => {
-                                // Sprawdź, czy wybrano opcję "Wybierz zespół"
-                                if (e.target.value !== "") {
-                                    handleTeamSelect(e.target.value);
-                                }
-                            }}
-                        >
-                            <option value="" disabled selected>Wybierz zespół</option>
-                            {searchOptions.map(option => (
-                                <option key={option.id} value={option.id}>{option.name}</option>
-                            ))}
-                        </select>
-                    )}
+          </div>
+      
+          <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+            {navLinks.map((link) => (
+              <NavLink to={link.href} key={link.name}>
+                <div
+                  className="nav-item"
+                  onMouseEnter={() => setHoveredIcon(link.name)}
+                  onMouseLeave={() => setHoveredIcon('')}
+                >
+                  <img src={getIcon(link.name)} alt={link.name} className="icon" />
+                  <span>{link.label}</span>
                 </div>
-            </div>
-
-            <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-                {navLinks.map((link) => (
-                    <NavLink to={link.href} key={link.name}>
-                        <div
-                            className="nav-item"
-                            onMouseEnter={() => setHoveredIcon(link.name)}
-                            onMouseLeave={() => setHoveredIcon('')}
-                        >
-                            <img src={getIcon(link.name)} alt={link.name} className="icon" />
-                            <span>{link.label}</span>
-                        </div>
-                    </NavLink>
-                ))}
-            </div>
-
-            <div className="menu-icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                <img src={getIcon('menu')} alt="Menu" />
-            </div>
+              </NavLink>
+            ))}
+          </div>
+      
+          <button onClick={toggleTheme} className="change-theme-button">
+            Zmień tryb
+          </button>
+      
+          <div className="menu-icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <img src={getIcon('menu')} alt="Menu" />
+          </div>
         </header>
-    );
+      );
 };
 
 const navLinks = [

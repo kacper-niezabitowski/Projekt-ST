@@ -170,3 +170,39 @@
 }
 
 
+/* Dodaj styl dla trybu ciemnego */
+/* Dodaj styl dla trybu ciemnego */
+body.dark-mode .navbar {
+    background-color: #0D1282; /* Kolor dla trybu ciemnego */
+    color: white;
+}
+
+.navbar button.change-theme-button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin-right: 10px; /* Odstęp między ikonami */
+    border-radius: 8px; /* Zaokrąglone krawędzie */
+    background-color: #0D1282; /* Kolor tła przed zmianą */
+    transition: background-color 0.3s, color 0.3s; /* Animacja zmiany koloru */
+    border: none; /* Usunięcie obramowania */
+    cursor: pointer; /* Zmiana kursora na wskaźnik */
+    color: white; /* Kolor tekstu */
+}
+
+.navbar button.change-theme-button:hover {
+    background-color: #1a1f4a; /* Kolor tła podczas najechania kursorem */
+}
+
+/* Dodaj styl dla przycisku "Zmień tryb" w trybie ciemnym */
+body.dark-mode .navbar button.change-theme-button {
+    color: white;
+}
+
+/* Dodaj styl dla trybu ciemnego dla wyników wyszukiwania */
+body.dark-mode .search-bar input,
+body.dark-mode .search-options select,
+body.dark-mode .search-options option {
+    color: black !important; /* Zmień kolor tekstu w trybie ciemnym na czarny */
+}
+
