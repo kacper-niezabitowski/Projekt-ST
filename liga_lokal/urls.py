@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import MyModelViewSet
+from .views import ProfileListView
 
 router = DefaultRouter()
 router.register(r'mymodel', MyModelViewSet)
@@ -25,4 +26,6 @@ router.register(r'mymodel', MyModelViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('api/profiles/', ProfileListView.as_view(), name='profile-list'),
 ]
+

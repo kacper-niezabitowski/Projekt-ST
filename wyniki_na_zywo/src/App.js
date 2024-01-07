@@ -7,6 +7,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import UserProfile from './components/UserProfile';
 import TeamPage from './components/TeamPage';
+import TestDjango from './components/TestDjango'; 
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/team/:teamId" element={<TeamPage />} />
+        <Route path="/testdjango" element={<TestDjango />} />
       </Routes>
     </Router>
   );

@@ -5,6 +5,9 @@ import FootballDataComponent from './FootballDataComponent';
 import Modal from 'react-modal';
 import axios from 'axios';
 import './HomePage.css'; // Upewnij się, że masz odpowiedni plik CSS
+import TestDjango from './TestDjango';
+
+
 
 Modal.setAppElement('#root');
 
@@ -12,6 +15,7 @@ const Homepage = () => {
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
   const [teamInfo, setTeamInfo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const openLoginForm = () => {
     setIsLoginFormOpen(true);
@@ -76,7 +80,6 @@ const Homepage = () => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Navbar openLoginForm={openLoginForm} onTeamSelect={fetchTeamInfo} />
       <div className="homepage-content">
-        <h1>Witaj przybyszu</h1>
         <p></p>
         <FootballDataComponent />
       </div>
