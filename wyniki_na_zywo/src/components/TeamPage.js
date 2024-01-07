@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import Navbar from './Navbar';
+import './TeamPage.css';
 
 const TeamPage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
@@ -31,48 +32,43 @@ const TeamPage = () => {
       return <p>No player data available.</p>;
     }
 
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Date of Birth</th>
-            <th>Nationality</th>
+return (
+  <table className="team-page-table">
+      <tbody>
+        {teamInfo.squad.map((player) => (
+          <tr key={player.id}>
+            <td>{player.name}</td>
+            <td>{player.position}</td>
           </tr>
-        </thead>
-        <tbody>
-          {teamInfo.squad.map((player) => (
-            <tr key={player.id}>
-              <td>{player.name}</td>
-              <td>{player.position}</td>
-              <td>{player.dateOfBirth}</td>
-              <td>{player.nationality}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  };
-
-  return (
-    <div>
-      {teamInfo ? (
-        <div>
-          <h2>{teamInfo.name}</h2>
-          <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} />
-          <p>Founded: {teamInfo.founded}</p>
-          <p>Club Colors: {teamInfo.clubColors}</p>
-          <p>
-            Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
-          </p>
-          {renderPlayersTable()}
-        </div>
-      ) : (
-        <p>Loading team information...</p>
-      )}
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
+  return (
+    <div className="team-page-container">
+      <Navbar />
+      <div className="team-container">
+        {teamInfo ? (
+          <div>
+            <div className="team-info-container">
+              <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
+              <div className="team-details">
+                <h2>{teamInfo.name}</h2>
+                <p>Founded: {teamInfo.founded}</p>
+                <p>
+                  Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
+                </p>
+              </div>
+            </div>
+            {renderPlayersTable()}
+          </div>
+        ) : (
+          <p>Loading team information...</p>
+        )}
+      </div>
+    </div>
+  );
+};
 export default TeamPage;

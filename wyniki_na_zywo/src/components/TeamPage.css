@@ -1,0 +1,44 @@
+.team-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin-left: 5%;
+    margin-top: 5%;
+    min-width: 300px;
+  }
+  .team-page-container {
+    background-color: #DCDCDC;
+  }
+  .team-info-container {
+    background-color: #DCDCDC; /* Taki sam jak kolor tła strony */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px; /* Dodaje odstęp przed listą zawodników */
+  }
+  .team-crest {
+    width: 100px; /* Możesz dostosować rozmiar herbu */
+    height: auto;
+    margin-right: 20px; /* Odstęp między herbem a tekstem */
+  }
+  
+  .team-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .team-page-table td {
+    padding: 7px 7px 1px 7px;
+    text-align: left;
+    border-bottom: 1px solid black;
+    font-size: 17px; /* Ustaw rozmiar tekstu */
+   /* font-family: Impact; /* Ustaw rodzinę czcionek */
+  }
+  
+  .team-page-table {
+    width: 50%; /* Opcjonalnie, aby tabela wykorzystała całą dostępną szerokość */
+    border-collapse: separate; /* Zapewnia oddzielne odstępy między komórkami */
+    border-spacing: 0 10px; /* Zwiększa odstęp między wierszami */
+  }
