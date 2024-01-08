@@ -1,32 +1,44 @@
 /* Homepage.css */
 
-.homepage-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Wyśrodkowanie zawartości w pionie */
-    justify-content: center; /* Wyśrodkowanie zawartości w poziomie */
-    text-align: center; /* Opcjonalne: wyśrodkowanie tekstu */
-    margin: auto; /* Opcjonalne: wyśrodkowanie w poziomie */
-    max-width: 800px; /* Opcjonalne: ograniczenie szerokości zawartości */
-  }
-  
-  .match-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: auto; /* Dodaj ten styl, aby centrować tabelę */
-  }
-  
-  .table-header, .table-cell {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .table-header {
-    background-color: #f2f2f2;
-  }
-  
+.homepage-container {
+  display: flex;
+  align-items: flex-start; /* Ustawienie align-items na flex-start */
+}
 
+.sidebar {
+  flex: 0 0 200px;
+  margin-top: 16px; /* Dodać margines od góry, aby oddzielić od Navbar */
+  margin-left: 16px; /* Dodać margines z lewej strony */
+}
+
+
+
+
+.homepage-content {
+  flex: 1; /* Reszta dostępnego miejsca dla treści */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Wyśrodkowanie zawartości w pionie */
+  justify-content: center; /* Wyśrodkowanie zawartości w poziomie */
+  text-align: center; /* Opcjonalne: wyśrodkowanie tekstu */
+  margin: 0 auto; /* Wyśrodkowanie w poziomie */
+  max-width: 800px;
+}
+
+.match-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-header, .table-cell {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-header {
+  background-color: #f2f2f2;
+}
 
 ul.emblems-list {
   list-style: none;

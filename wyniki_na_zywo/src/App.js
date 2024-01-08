@@ -9,6 +9,7 @@ import UserProfile from './components/UserProfile';
 import TeamPage from './components/TeamPage';
 import TestDjango from './components/TestDjango'; 
 import { ThemeProvider } from './components/ThemeContext';
+import MatchPage from './components/MatchPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/team/:teamId" element={<TeamPage />} />
         <Route path="/testdjango" element={<TestDjango />} />
+        <Route path="/match/:matchId" element={<MatchPage />} />
       </Routes>
     </Router>
     </ThemeProvider>

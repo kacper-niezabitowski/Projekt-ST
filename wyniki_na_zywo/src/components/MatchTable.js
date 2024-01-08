@@ -3,13 +3,16 @@ import './MatchTable.css'; // Importuj plik ze stylami
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from './ThemeContext'; 
 
-
 const MatchTable = ({ matches }) => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme(); 
 
   const handleTeamClick = (teamId) => {
     navigate(`/team/${teamId}`);
+  };
+
+  const handleDetailsClick = (matchId) => {
+    navigate(`/match/${matchId}`);
   };
 
   return (
@@ -25,6 +28,7 @@ const MatchTable = ({ matches }) => {
                 <th className="table-header">Time</th>
                 <th className="table-header">Status</th>
                 <th className="table-header">Score</th>
+                <th className="table-header">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -51,6 +55,13 @@ const MatchTable = ({ matches }) => {
                     {match.score && match.score.fullTime.home !== null && match.score.fullTime.away !== null
                       ? `${match.score.fullTime.home} - ${match.score.fullTime.away}`
                       : '-'}
+                  </td>
+                  <td
+                    className="table-cell details"
+                    onClick={() => handleDetailsClick(match.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Szczegóły
                   </td>
                 </tr>
               ))}

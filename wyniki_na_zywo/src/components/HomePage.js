@@ -4,10 +4,9 @@ import LoginForm from './LoginForm';
 import FootballDataComponent from './FootballDataComponent';
 import Modal from 'react-modal';
 import axios from 'axios';
-import './HomePage.css'; // Upewnij się, że masz odpowiedni plik CSS
+import './HomePage.css';
 import TestDjango from './TestDjango';
-
-
+import Sidebar from './SideBar';
 
 Modal.setAppElement('#root');
 
@@ -15,7 +14,6 @@ const Homepage = () => {
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
   const [teamInfo, setTeamInfo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const openLoginForm = () => {
     setIsLoginFormOpen(true);
@@ -77,36 +75,43 @@ const Homepage = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div>
       <Navbar openLoginForm={openLoginForm} onTeamSelect={fetchTeamInfo} />
-      <div className="homepage-content">
-        <p></p>
-        <FootballDataComponent />
-      </div>
-      {isLoginFormOpen && (
-        <div style={{ alignSelf: 'flex-end' }}>
-          <LoginForm onClose={closeLoginForm} />
-        </div>
-      )}
+      <div style={{ display: 'flex' }}> {/* Zaktualizowany layout */}
 
-      {/* Modal */}
-      <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        {teamInfo && (
-          <div>
-            <h2>{teamInfo.name}</h2>
-            <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} />
-            <p>Founded: {teamInfo.founded}</p>
-            <p>Club Colors: {teamInfo.clubColors}</p>
-            <p>
-              Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
-            </p>
-            {/* Display other team information as needed */}
-            {renderPlayersTable()}
-            <br />
-            <button onClick={closeModal}>Close</button>
+        <Sidebar />
+
+        <div style={{ flex: 1, flexDirection: 'column' }}> {/* Kontener główny */}
+          <div className="homepage-container">
+            <div className="homepage-content">
+              <FootballDataComponent />
+            </div>
           </div>
-        )}
-      </Modal>
+          {isLoginFormOpen && (
+            <div style={{ alignSelf: 'flex-end' }}>
+              <LoginForm onClose={closeLoginForm} />
+            </div>
+          )}
+
+          {/* Modal */}
+          <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+            {teamInfo && (
+              <div>
+                <h2>{teamInfo.name}</h2>
+                <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} />
+                <p>Founded: {teamInfo.founded}</p>
+                <p>Club Colors: {teamInfo.clubColors}</p>
+                <p>
+                  Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
+                </p>
+                {renderPlayersTable()}
+                <br />
+                <button onClick={closeModal}>Close</button>
+              </div>
+            )}
+          </Modal>
+        </div>
+      </div>
     </div>
   );
 };
