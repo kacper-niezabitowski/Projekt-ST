@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MatchTable from './MatchTable';
 import axios from 'axios';
+import { useTheme } from './ThemeContext';
 
 
 const buttonStyle = {
@@ -16,6 +17,8 @@ const buttonStyle = {
 const FootballDataComponent = () => {
   const [matches, setMatches] = useState([]);
   const [filteredMatches, setFilteredMatches] = useState([]);
+  const { isDarkMode } = useTheme(); 
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +78,7 @@ const FootballDataComponent = () => {
   };
 
   return (
-    <div>
+    <div style={{ color: isDarkMode ? 'white' : 'black' }}>
       
 
       {/* Przyciski do filtrowania */}

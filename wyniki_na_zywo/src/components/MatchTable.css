@@ -43,3 +43,33 @@ ul.emblems-list img {
   margin: 0 auto; /* Wyśrodkuj obraz wewnątrz elementu li */
 }
 
+
+/* Style dla trybu ciemnego */
+body.dark-mode .table-wrapper {
+  background-color: rgba(255, 255, 255, 0.1); /* Kolor tła dla trybu ciemnego */
+  box-shadow: 0px 4px 8px #1a1f4a; /* Lekki cień dla głębi w trybie ciemnym */
+  border-radius: 15px; /* Zaokrąglone rogi w trybie ciemnym */
+}
+
+body.dark-mode .match-table {
+  border-color:  #1a1f4a; /* Kolor granic tabeli dla trybu ciemnego */
+}
+
+body.dark-mode .table-header {
+  background-color:  #1a1f4a; /* Kolor nagłówków tabeli dla trybu ciemnego */
+  color: #fff; /* Kolor tekstu nagłówków tabeli w trybie ciemnym */
+  border-color: #000; 
+}
+
+body.dark-mode .table-cell {
+  border-color: #000; /* Kolor granic komórek tabeli dla trybu ciemnego */
+  color: #fff; /* Kolor tekstu komórek tabeli w trybie ciemnym */
+}
+
+body.dark-mode ul.emblems-list li {
+  margin: 0 10px; /* Dodaj margines między emblemami w trybie ciemnym */
+}
+
+body.dark-mode ul.emblems-list img {
+  filter: brightness(0) invert(1); /* Odwróć kolory obrazów w trybie ciemnym */
+}

@@ -3,10 +3,13 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './Navbar';
 import './TeamPage.css';
+import { useTheme } from './ThemeContext';
 
 const TeamPage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
   const { teamId } = useParams(); // Używamy useParams, aby pobrać teamId z URL.
+  const { isDarkMode } = useTheme();
+  
   console.log("Team ID:", teamId);
   useEffect(() => {
     const fetchTeamInfo = async () => {
@@ -47,26 +50,28 @@ return (
 };
 
   return (
-    <div className="team-page-container">
-      <Navbar />
-      <div className="team-container">
-        {teamInfo ? (
-          <div>
-            <div className="team-info-container">
-              <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
-              <div className="team-details">
-                <h2>{teamInfo.name}</h2>
-                <p>Founded: {teamInfo.founded}</p>
-                <p>
-                  Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
-                </p>
+    <div className={isDarkMode ? 'dark-mode' : ''}>
+      <div className="team-page-container">
+        <Navbar />
+        <div className="team-container">
+          {teamInfo ? (
+            <div>
+              <div className="team-info-container">
+                <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
+                <div className="team-details">
+                  <h2>{teamInfo.name}</h2>
+                  <p>Founded: {teamInfo.founded}</p>
+                  <p>
+                    Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
+                  </p>
+                </div>
               </div>
+              {renderPlayersTable()}
             </div>
-            {renderPlayersTable()}
-          </div>
-        ) : (
-          <p>Loading team information...</p>
-        )}
+          ) : (
+            <p>Loading team information...</p>
+          )}
+        </div>
       </div>
     </div>
   );

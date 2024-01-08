@@ -8,9 +8,11 @@ import RegisterForm from './components/RegisterForm';
 import UserProfile from './components/UserProfile';
 import TeamPage from './components/TeamPage';
 import TestDjango from './components/TestDjango'; 
+import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
   return (
+    <ThemeProvider>
     <Router>
       <Routes>
         {/* Define routes using the Route component */}
@@ -23,6 +25,7 @@ function App() {
         <Route path="/testdjango" element={<TestDjango />} />
       </Routes>
     </Router>
+    </ThemeProvider>
   );
 }
 
