@@ -62,28 +62,15 @@ const MatchPage = () => {
             <div>
               <div className="team-info-container">
                 {/* Display match details here */}
-                <h2>Match Details</h2>
-                <p>Date: {new Date(matchInfo.utcDate).toLocaleDateString()}</p>
-                <p>Status: {matchInfo.status}</p>
-                <p>Venue: {matchInfo.venue}</p>
-                <p>Attendance: {matchInfo.attendance}</p>
-                <p>Matchday: {matchInfo.matchday}</p>
+                <div>
+                    <p>Date: {new Date(matchInfo.utcDate).toLocaleDateString()}</p>
+                    <p>Status: {matchInfo.status}</p>
+                    <p>Venue: {matchInfo.venue}</p>
+                    <p>Attendance: {matchInfo.attendance}</p>
+                </div>
 
-                {/* Display home team details */}
-                {renderPlayersTable(matchInfo.homeTeam, 'Home Team')}
-
-                {/* Display away team details */}
-                {renderPlayersTable(matchInfo.awayTeam, 'Away Team')}
-
-                {/* Display substitutions, bookings, goals, etc. */}
-                <h3>Substitutions</h3>
-                {/* Map through substitutions data and display them */}
-
-                <h3>Bookings</h3>
-                {/* Map through bookings data and display them */}
-
-                <h3>Goals</h3>
-                {/* Map through goals data and display them */}
+               
+                
               </div>
             </div>
           ) : (
