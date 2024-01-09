@@ -1,33 +1,39 @@
 /* Add styling for the login form */
-
 .login-form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    z-index: 999; /* Ensure the modal is above other elements */
-    text-align: center;
-  }
-  
-  .login-form label {
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  .login-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .login-form button {
-    background-color: #0D1282;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 8px;
-  }
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px #0D1282;
+  z-index: 999; /* Ensure the modal is above other elements */
+  text-align: center;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.login-form button {
+  background-color: #0D1282;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.dark-mode .login-form {
+  background-color: rgba(255, 255, 255, 0.008);;
+  color: white;
+  box-shadow: 0px 0px 10px #0D1282;
+}
+
+/* Add styling for other dark mode elements if needed */
