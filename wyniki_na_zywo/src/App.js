@@ -11,6 +11,8 @@ import TestDjango from './components/TestDjango';
 import { ThemeProvider } from './components/ThemeContext';
 import MatchPage from './components/MatchPage';
 import LeaguePage from './components/LeaguePage';
+import LigaPage from './components/LigaPage';
+
 
 function App() {
   return (
@@ -26,7 +28,7 @@ function App() {
         <Route path="/team/:teamId" element={<TeamPage />} />
         <Route path="/testdjango" element={<TestDjango />} />
         <Route path="/match/:matchId" element={<MatchPage />} />
-        <Route path="/league/:leagueId" element={<LeaguePage />} />
+        <Route path="/league/:leagueId" element={<LigaPage />} />
       </Routes>
     </Router>
     </ThemeProvider>

@@ -1,3 +1,4 @@
+// Sidebar.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
@@ -22,6 +23,7 @@ const Sidebar = () => {
   const navigate = useNavigate(); // useNavigate instead of useHistory
 
   const [matchInfo, setMatchInfo] = useState(null);
+  const [leagueInfo, setLeagueInfo] = useState(null);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {
@@ -31,9 +33,19 @@ const Sidebar = () => {
             'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
           },
         });
+
         setMatchInfo(response.data);
+
+        // Dodaj kod do pobrania informacji o lidze
+        const leagueResponse = await axios.get(`/v4/competitions/${leagueId}`, {
+          headers: {
+            'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
+          },
+        });
+
+        setLeagueInfo(leagueResponse.data);
       } catch (error) {
-        console.error('Error fetching match info:', error);
+        console.error('Error fetching match or league info:', error);
       }
     };
 
