@@ -1,0 +1,121 @@
+.team-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin-left: 5%;
+    margin-top: 5%;
+    min-width: 300px;
+  }
+  .team-page-container {
+    background-color: #DCDCDC;
+  }
+  .team-info-container {
+    background-color: #DCDCDC; /* Taki sam jak kolor tła strony */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px; /* Dodaje odstęp przed listą zawodników */
+  }
+  .team-crest {
+    width: 100px; /* Możesz dostosować rozmiar herbu */
+    height: auto;
+    margin-right: 20px; /* Odstęp między herbem a tekstem */
+  }
+  
+  .team-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .team-page-table td {
+    padding: 7px 7px 1px 7px;
+    text-align: left;
+    border-bottom: 1px solid black;
+    font-size: 17px; /* Ustaw rozmiar tekstu */
+   /* font-family: Impact; /* Ustaw rodzinę czcionek */
+  }
+  
+  .team-page-table {
+    width: 50%; /* Opcjonalnie, aby tabela wykorzystała całą dostępną szerokość */
+    border-collapse: separate; /* Zapewnia oddzielne odstępy między komórkami */
+    border-spacing: 0 10px; /* Zwiększa odstęp między wierszami */
+  }
+
+
+  /* Style dla trybu ciemnego */
+body.dark-mode .team-container {
+  background-color:  rgba(255, 255, 255, 0.1);;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  width: 50%;
+  margin-left: 5%;
+  margin-top: 5%;
+  min-width: 300px;
+  box-shadow: 0px 4px 8px #1a1f4a; /* Lekki cień dla głębi w trybie ciemnym */
+}
+
+
+body.dark-mode .team-page-container {
+  background-color: #333; /* Kolor tła strony w trybie ciemnym */
+  
+}
+
+body.dark-mode .team-info-container {
+  background-color: #1a1f4a; /* Taki sam jak kolor tła strony w trybie ciemnym */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px; /* Dodaje odstęp przed listą zawodników */
+  box-shadow: 0px 4px 8px #1a1f4a; /* Lekki cień dla głębi w trybie ciemnym */
+}
+
+body.dark-mode .team-crest {
+  width: 100px; /* Możesz dostosować rozmiar herbu */
+  height: auto;
+  margin-right: 20px; /* Odstęp między herbem a tekstem */
+  
+}
+
+body.dark-mode .team-details {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+body.dark-mode .team-page-table td {
+  padding: 7px 7px 1px 7px;
+  text-align: left;
+  border-bottom: 1px solid white; /* Kolor granic komórek w trybie ciemnym */
+  font-size: 17px; /* Ustaw rozmiar tekstu */
+  color: white; /* Kolor tekstu w trybie ciemnym */
+  
+}
+
+body.dark-mode .team-page-table {
+  width: 50%; /* Opcjonalnie, aby tabela wykorzystała całą dostępną szerokość */
+  border-collapse: separate; /* Zapewnia oddzielne odstępy między komórkami */
+  border-spacing: 0 10px; /* Zwiększa odstęp między wierszami */
+  
+}
+
+.team-container {
+    /* istniejące style */
+    margin-left: auto;  /* zmiana z konkretnej wartości na auto */
+    margin-right: auto; /* dodanie marginesu prawego */
+  }
+  
+  .team-row {
+    display: flex;
+    justify-content: space-between; /* Rozdziela elementy równomiernie */
+    align-items: center;
+  }
+  
+  .team-column {
+    flex: 1; /* Każda kolumna zajmuje równą część przestrzeni */
+    padding: 0 10px; /* Dodanie odstępu */
+  }
+  

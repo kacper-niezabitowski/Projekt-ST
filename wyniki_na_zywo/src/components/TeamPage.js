@@ -20,6 +20,7 @@ const TeamPage = () => {
           },
         });
         setTeamInfo(response.data);
+        console.log("Team Info:", teamInfo);
       } catch (error) {
         console.error('Error fetching team info:', error);
       }

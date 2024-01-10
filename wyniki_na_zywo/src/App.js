@@ -13,7 +13,6 @@ import MatchPage from './components/MatchPage';
 import LeaguePage from './components/LeaguePage';
 import LigaPage from './components/LigaPage';
 
-
 function App() {
   return (
     <ThemeProvider>

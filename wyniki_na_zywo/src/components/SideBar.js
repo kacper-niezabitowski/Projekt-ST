@@ -6,11 +6,11 @@ import axios from 'axios';
 import "./SideBar.css"
 
 const leagues = [
-  { name: 'CHAMPIONS LEAGUE', path: '/v4/competitions/CL' },
+  { name: 'CHAMPIONS LEAGUE', path: '/league/CL' },
   { name: 'PRIMEIRA LIGA', path: '/league/PPL' },
-  { name: 'PREMIER LEAGUE', path: '/league/SPL' },
-  { name: 'EREDIVISIE', path: '/league/DED' },
-  { name: 'BUNDESLIGA', path: '/league/ABL' },
+  { name: 'PREMIER LEAGUE', path: '/league/PL' },
+  { name: 'EREDIVISIE', path: '/league/ED' },
+  { name: 'BUNDESLIGA', path: '/league/BL1' },
   { name: 'LIGUE 1', path: '/league/FL1' },
   { name: 'SERIE A ITALY', path: '/league/SA' },
   { name: 'SERIE A - BRAZIL', path: '/league/BSA' },

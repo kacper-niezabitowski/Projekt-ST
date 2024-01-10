@@ -66,6 +66,7 @@ const LeaguePage = () => {
           teams: results[2].data,
           scorers: results[3].data
         });
+        console.log("Match Info:", leagueData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
