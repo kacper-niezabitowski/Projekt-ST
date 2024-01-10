@@ -7,10 +7,11 @@ import { useTheme } from './ThemeContext';
 
 const TeamPage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
-  const { teamId } = useParams(); // Używamy useParams, aby pobrać teamId z URL.
+  const { teamId } = useParams();
   const { isDarkMode } = useTheme();
-  
+
   console.log("Team ID:", teamId);
+
   useEffect(() => {
     const fetchTeamInfo = async () => {
       try {
@@ -19,36 +20,58 @@ const TeamPage = () => {
             'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
           },
         });
+
         setTeamInfo(response.data);
-        console.log("Team Info:", teamInfo);
       } catch (error) {
         console.error('Error fetching team info:', error);
       }
     };
-  
-    if(teamId) {
+
+    if (teamId) {
       fetchTeamInfo();
     }
   }, [teamId]);
+
+  // Funkcja do obliczania wieku na podstawie daty urodzenia
+  const calculateAge = (birthDate) => {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+
+    // Sprawdź, czy już miał urodziny w bieżącym roku
+    const hasBirthdayOccurred = (
+      today.getMonth() > birthDateObj.getMonth() ||
+      (today.getMonth() === birthDateObj.getMonth() && today.getDate() >= birthDateObj.getDate())
+    );
+
+    // Zmniejsz wiek, jeśli urodziny jeszcze nie nadeszły w bieżącym roku
+    if (!hasBirthdayOccurred) {
+      age--;
+    }
+
+    return age;
+  };
+
 
   const renderPlayersTable = () => {
     if (!teamInfo || !teamInfo.squad) {
       return <p>No player data available.</p>;
     }
 
-return (
-  <table className="team-page-table">
-      <tbody>
-        {teamInfo.squad.map((player) => (
-          <tr key={player.id}>
-            <td>{player.name}</td>
-            <td>{player.position}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
+    return (
+      <table className="team-page-table">
+        <tbody>
+          {teamInfo.squad.map((player) => (
+            <tr key={player.id}>
+              <td>{player.name}</td>
+              <td>{player.position}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  };
+
 
   return (
     <div className={isDarkMode ? 'dark-mode' : ''}>
@@ -61,11 +84,20 @@ return (
                 <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
                 <div className="team-details">
                   <h2>{teamInfo.name}</h2>
-                  <p>Founded: {teamInfo.founded}</p>
+                  <p>Założony: {teamInfo.founded}</p>
                   <p>
-                    Website: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
+                    Strona internetowa: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
                   </p>
+                  <p>Kraj pochodzenia: {teamInfo.area.name}</p>
                 </div>
+              </div>
+              <div className="additional-info">
+                
+                
+                <p>Trener: {teamInfo.coach.name} </p>
+                <p>Narodowośc: {teamInfo.coach.nationality}</p> 
+                <p>Wiek: {calculateAge(teamInfo.coach.dateOfBirth)}</p>
+                
               </div>
               {renderPlayersTable()}
             </div>
@@ -77,4 +109,5 @@ return (
     </div>
   );
 };
+
 export default TeamPage;
