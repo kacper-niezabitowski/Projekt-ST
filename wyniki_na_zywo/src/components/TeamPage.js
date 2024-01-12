@@ -52,6 +52,41 @@ const TeamPage = () => {
     return age;
   };
 
+
+  const translatePosition = (position) => {
+    switch (position) {
+      case 'Goalkeeper':
+        return 'Bramkarz';
+      case 'Defence':
+        return 'Obrońca';
+      case 'Midfield':
+        return 'Pomocnik';
+      case 'Forward':
+        return 'Napastnik';
+      case 'Offence':
+        return 'Atak';
+      default:
+        return position;
+    }
+  };
+
+  const translateNationality = (nationality) => {
+    const nationalityTranslations = {
+      'England': 'Anglia',
+      'Spain': 'Hiszpania',
+      'France': 'Francja',
+      'Germany':'Niemcy',
+      'Italy': 'Włochy',
+      'Poland':'polska',
+      'Monaco':'Monako',
+      'Austria': 'Austria',
+      'Denmark':'Dania',
+        }    
+        return nationalityTranslations[nationality] || nationality;
+      };
+
+
+  
   const renderButtons = () => {
     return (
       <div className="team-buttons">
@@ -73,7 +108,7 @@ const TeamPage = () => {
           {teamInfo.squad.map((player) => (
             <tr key={player.id}>
               <td>{player.name}</td>
-              <td>{player.position}</td>
+              <td>{translatePosition(player.position)}</td>
             </tr>
           ))}
         </tbody>
@@ -97,7 +132,7 @@ const TeamPage = () => {
                   <p>
                     Strona internetowa: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
                   </p>
-                  <p>Kraj pochodzenia: {teamInfo.area.name}</p>
+                  <p>Kraj pochodzenia: {translateNationality(teamInfo.area.name)}</p>
                 </div>
               </div>
               {renderButtons()}

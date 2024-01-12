@@ -136,6 +136,26 @@ const LeaguePage = () => {
     navigate(`/match/${matchId}`);
   };
 
+  const translateStatus = (status) => {
+    switch (status) {
+      case 'SCHEDULED':
+        return 'Zaplanowany';
+      case 'IN_PLAY':
+        return 'W trakcie';
+      case 'PAUSED':
+        return 'Zatrzymany';
+      case 'FINISHED':
+        return 'Zakończony';
+      case 'POSTPONED':
+        return 'Przełożony';
+      case 'TIMED':
+        return 'timed';
+      
+      default:
+        return status;
+    }
+  };
+
   useEffect(() => {
     const fetchMatchesData = async () => {
       try {
@@ -179,9 +199,10 @@ const LeaguePage = () => {
       case 'postponed':
         setFilteredMatches(matchesData.filter((match) => match.status === 'POSTPONED'));
         break;
+      
       default:
           // Domyślnie wyświetl wszystkie mecze
-        setFilteredMatches(todayMatches);
+        setFilteredMatches(matchesData);
          break;
     }
   };
@@ -287,8 +308,12 @@ const LeaguePage = () => {
                     <td className="table-cell">{new Date(match.utcDate).toLocaleDateString()}</td>
                     <td className="table-cell">{match.homeTeam.name}</td>
                     <td className="table-cell">{match.awayTeam.name}</td>
-                    <td className="table-cell">{`${match.score.fullTime.home} - ${match.score.fullTime.away}`}</td>
-                    <td className="table-cell">{match.status}</td>
+                    <td className="table-cell">
+                    {match.score && match.score.fullTime.home !== null && match.score.fullTime.away !== null
+                      ? `${match.score.fullTime.home} - ${match.score.fullTime.away}`
+                      : '-'}
+                  </td>
+                    <td className="table-cell">{translateStatus(match.status)}</td>
                     <td
                     className="table-cell details"
                     onClick={() => handleDetailsClick(match.id)}

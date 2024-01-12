@@ -1,11 +1,31 @@
 import React from 'react';
 import './MatchTable.css'; // Importuj plik ze stylami
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from './ThemeContext'; 
+import { useTheme } from './ThemeContext';
+
+const translateStatus = (status) => {
+  switch (status) {
+    case 'SCHEDULED':
+      return 'Zaplanowany';
+    case 'IN_PLAY':
+      return 'W trakcie';
+    case 'PAUSED':
+      return 'Zatrzymany';
+    case 'FINISHED':
+      return 'Zakończony';
+    case 'POSTPONED':
+      return 'Przełożony';
+    case 'TIMED':
+      return 'timed';
+    
+    default:
+      return status;
+  }
+};
 
 const MatchTable = ({ matches }) => {
   const navigate = useNavigate();
-  const { isDarkMode } = useTheme(); 
+  const { isDarkMode } = useTheme();
 
   const handleTeamClick = (teamId) => {
     navigate(`/team/${teamId}`);
@@ -22,13 +42,13 @@ const MatchTable = ({ matches }) => {
           <table className="match-table">
             <thead>
               <tr>
-                <th className="table-header">Home Team</th>
-                <th className="table-header">Away Team</th>
-                <th className="table-header">Date</th>
-                <th className="table-header">Time</th>
+                <th className="table-header">Drużyna gospodarzy</th>
+                <th className="table-header">Drużyna wyjazdowa</th>
+                <th className="table-header">Data</th>
+                <th className="table-header">Godzina</th>
                 <th className="table-header">Status</th>
-                <th className="table-header">Score</th>
-                <th className="table-header">Details</th>
+                <th className="table-header">Wynik</th>
+                <th className="table-header">Szczegóły</th>
               </tr>
             </thead>
             <tbody>
@@ -50,7 +70,7 @@ const MatchTable = ({ matches }) => {
                   </td>
                   <td className="table-cell">{new Date(match.utcDate).toLocaleDateString()}</td>
                   <td className="table-cell">{new Date(match.utcDate).toLocaleTimeString()}</td>
-                  <td className="table-cell">{match.status}</td>
+                  <td className="table-cell">{translateStatus(match.status)}</td>
                   <td className="table-cell">
                     {match.score && match.score.fullTime.home !== null && match.score.fullTime.away !== null
                       ? `${match.score.fullTime.home} - ${match.score.fullTime.away}`
