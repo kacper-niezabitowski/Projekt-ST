@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import './LigaPage.css';
 import Navbar from './Navbar';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, useNavigate  } from 'react-router-dom';
+import { useTheme } from './ThemeContext';
+import axios from 'axios';
 
 const styles = {
   container: {
@@ -99,8 +101,10 @@ const LeaguePage = () => {
   const { leagueId } = useParams();
   const leagueLogoPath = loga.find((logo) => logo.path.includes(leagueId))?.path || 'default.png';
   const [selectedCategory, setSelectedCategory] = useState('Gole');
-
-
+  const [selectedView, setSelectedView] = useState('table');
+  const [matchesData, setMatchesData] = useState([]);
+  const [filteredMatches, setFilteredMatches] = useState([]);
+  const navigate = useNavigate();
 
   const getSelectedCategoryData = () => {
     switch (selectedCategory) {
@@ -124,6 +128,187 @@ const LeaguePage = () => {
     }
   };
 
+  const handleTeamClick = (teamId) => {
+    navigate(`/team/${teamId}`);
+  };
+
+  const handleDetailsClick = (matchId) => {
+    navigate(`/match/${matchId}`);
+  };
+
+  useEffect(() => {
+    const fetchMatchesData = async () => {
+      try {
+        // Fetch matches data using your API endpoint
+        const response = await axios.get(`/v4/competitions/${leagueId}/matches`, {
+          headers: {
+            'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
+          },
+        });
+        setMatchesData(response.data.matches);
+        setFilteredMatches(response.data.matches); // Initially display all matches
+      } catch (error) {
+        console.error('Error fetching matches data:', error);
+      }
+    };
+
+    if (leagueId) {
+      fetchMatchesData();
+    }
+  }, [leagueId]);
+
+  const filterMatches = (filterType) => {
+    switch (filterType) {
+      case 'finished':
+        setFilteredMatches(matchesData.filter((match) => match.status === 'FINISHED'));
+        break;
+      case 'scheduled':
+        setFilteredMatches(matchesData.filter((match) => match.status === 'SCHEDULED'));
+        break;
+      case 'today':
+        // Przykład: Wyświetl mecze z dzisiaj
+        const todayMatches = matchesData.filter((match) => {
+          const today = new Date().toISOString().split('T')[0];
+          return match.utcDate.split('T')[0] === today;
+        });
+        setFilteredMatches(todayMatches);
+        break;
+      case 'timed':
+        setFilteredMatches(matchesData.filter((match) => match.status === 'TIMED'));
+        break;
+      case 'postponed':
+        setFilteredMatches(matchesData.filter((match) => match.status === 'POSTPONED'));
+        break;
+      default:
+          // Domyślnie wyświetl wszystkie mecze
+        setFilteredMatches(todayMatches);
+         break;
+    }
+  };
+
+  const renderView = () => {
+    switch (selectedView) {
+      case 'table':
+        return (
+          <div className="table-wrapper">
+            <table className="match-table">
+              <thead>
+                <tr>
+                  <th className="table-header">Pozycja</th>
+                  <th className="table-header">Drużyna</th>
+                  <th className="table-header">Mecze</th>
+                  <th className="table-header">Zwycięstwa</th>
+                  <th className="table-header">Remisy</th>
+                  <th className="table-header">Porażki</th>
+                  <th className="table-header">Punkty</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leagueData.map((team, index) => (
+                  <tr key={index}>
+                    <td className="table-cell">{team.pozycja}</td>
+                    <td className="table-cell">{team.druzyna}</td>
+                    <td className="table-cell">{team.mecze}</td>
+                    <td className="table-cell">{team.zwyciestwa}</td>
+                    <td className="table-cell">{team.remisy}</td>
+                    <td className="table-cell">{team.porazki}</td>
+                    <td className="table-cell">{team.punkty}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        case 'stats':
+      return (
+        <div>
+          {/* Przyciski do wyboru kategorii statystyk */}
+          <div className="category-buttons">
+            <button className="buttonStyle" onClick={() => setSelectedCategory('Gole')}>
+              Gole
+            </button>
+            <button className="buttonStyle" onClick={() => setSelectedCategory('Asysty')}>
+              Asysty
+            </button>
+            <button className="buttonStyle" onClick={() => setSelectedCategory('Asysty')}>
+              Żółte kartki
+            </button>
+            <button className="buttonStyle" onClick={() => setSelectedCategory('Asysty')}>
+              Czerwone kartki
+            </button>
+            {/* Dodaj przyciski dla innych kategorii, jeśli są potrzebne */}
+          </div>
+          {/* Tabela statystyk */}
+          <div className="table-wrapper">
+            <table className="match-table">
+              <thead>
+                <tr>
+                  <th className="table-header">Zawodnik</th>
+                  <th className="table-header">{selectedCategory}</th>
+                </tr>
+              </thead>
+              <tbody>{getSelectedCategoryData()}</tbody>
+            </table>
+          </div>
+        </div>
+      );
+      case 'matches':
+        return (
+          <div>
+          <div className="filter-buttons"  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }} >
+          <div style={{ marginBottom: '10px' }}>
+            <button style={buttonStyle} onClick={() => filterMatches('today')}>Dzisiaj</button>
+            <button style={buttonStyle} onClick={() => filterMatches('all')}>Wszystkie</button>
+            <button style={buttonStyle} onClick={() => filterMatches('finished')}>Ukończone</button>
+            <button style={buttonStyle} onClick={() => filterMatches('scheduled')}>Zaplanowane</button>
+            <button style={buttonStyle} onClick={() => filterMatches('timed')}>Timed</button>
+            <button style={buttonStyle} onClick={() => filterMatches('postponed')}>Przełożone</button>
+                {/* Add more buttons as needed */}
+                
+              </div>
+              </div>
+          <div className="table-wrapper">
+            
+            <table className="match-table">
+              
+              <thead>
+                 <tr>
+                  <th className="table-header">Data</th>
+                  <th className="table-header">Gospodarz</th>
+                  <th className="table-header">Gość</th>
+                  <th className="table-header">Wynik</th>
+                  <th className="table-header">Status</th>
+                  <th className="table-header">Szczegóły</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredMatches.map((match, index) => (
+                  <tr key={index}>
+                    <td className="table-cell">{new Date(match.utcDate).toLocaleDateString()}</td>
+                    <td className="table-cell">{match.homeTeam.name}</td>
+                    <td className="table-cell">{match.awayTeam.name}</td>
+                    <td className="table-cell">{`${match.score.fullTime.home} - ${match.score.fullTime.away}`}</td>
+                    <td className="table-cell">{match.status}</td>
+                    <td
+                    className="table-cell details"
+                    onClick={() => handleDetailsClick(match.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Szczegóły
+                  </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+  
+
   return (
     <div>
       <Navbar />
@@ -131,59 +316,21 @@ const LeaguePage = () => {
         <div className="logo" style={{ textAlign: 'center' }}>
           <img src={`https://crests.football-data.org/${leagueLogoPath}`} alt={`${leagueId} logo`} />
         </div>
-        <div className="table-wrapper">
-          <table className="match-table">
-            <thead>
-              <tr>
-                <th className="table-header">Pozycja</th>
-                <th className="table-header">Drużyna</th>
-                <th className="table-header">Mecze</th>
-                <th className="table-header">Zwycięstwa</th>
-                <th className="table-header">Remisy</th>
-                <th className="table-header">Porażki</th>
-                <th className="table-header">Punkty</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leagueData.map((team, index) => (
-                <tr key={index}>
-                  <td className="table-cell">{team.pozycja}</td>
-                  <td className="table-cell">{team.druzyna}</td>
-                  <td className="table-cell">{team.mecze}</td>
-                  <td className="table-cell">{team.zwyciestwa}</td>
-                  <td className="table-cell">{team.remisy}</td>
-                  <td className="table-cell">{team.porazki}</td>
-                  <td className="table-cell">{team.punkty}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
         <div className="category-buttons">
-          <button className="buttonStyle" onClick={() => setSelectedCategory('Gole')}>
-            Gole
+          <button className="buttonStyle" onClick={() => setSelectedView('table')}>
+            Tabela
           </button>
-          <button className="buttonStyle" onClick={() => setSelectedCategory('Asysty')}>
-            Asysty
+          <button className="buttonStyle" onClick={() => setSelectedView('stats')}>
+            Statystyki
           </button>
-          <button className="buttonStyle" onClick={() => setSelectedCategory('Żółte kartki')}>
-            Żółte kartki
+          
+          <button className="buttonStyle" onClick={() => setSelectedView('matches')}>
+            Mecze
           </button>
-          <button className="buttonStyle" onClick={() => setSelectedCategory('Czerwone kartki')}>
-            Czerwone kartki
-          </button>
+          
         </div>
-        <div className="table-wrapper">
-          <table className="match-table">
-            <thead>
-              <tr>
-                <th className="table-header">Zawodnik</th>
-                <th className="table-header">{selectedCategory}</th>
-              </tr>
-            </thead>
-            <tbody>{getSelectedCategoryData()}</tbody>
-          </table>
-        </div>
+        
+        {renderView()}
       </div>
     </div>
   );

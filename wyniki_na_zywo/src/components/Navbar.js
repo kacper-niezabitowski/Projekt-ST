@@ -46,7 +46,6 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
 
   useEffect(() => {
     if (searchOptions.length === 1) {
-      // If there is only one option, automatically select that team
       handleTeamSelect(searchOptions[0].id);
     }
   }, [searchOptions]);
@@ -80,7 +79,6 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
   const handleTeamSelect = (teamId) => {
     setSelectedTeam(teamId);
     onTeamSelect(teamId);
-    // Navigate to the team's page
     navigate(`/team/${teamId}`);
   };
 
@@ -107,7 +105,7 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
                 }
               }}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Wybierz zespół
               </option>
               {searchOptions.map((option) => (
