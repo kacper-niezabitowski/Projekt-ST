@@ -52,6 +52,15 @@ const TeamPage = () => {
     return age;
   };
 
+  const renderButtons = () => {
+    return (
+      <div className="team-buttons">
+        <button className="team-button">Przycisk 1</button>
+        <button className="team-button">Przycisk 2</button>
+        <button className="team-button">Przycisk 3</button>
+      </div>
+    );
+  };
 
   const renderPlayersTable = () => {
     if (!teamInfo || !teamInfo.squad) {
@@ -75,11 +84,11 @@ const TeamPage = () => {
 
   return (
     <div className={isDarkMode ? 'dark-mode' : ''}>
+      <Navbar />
       <div className="team-page-container">
-        <Navbar />
-        <div className="team-container">
+        <div className="team-upper-container">
           {teamInfo ? (
-            <div>
+            <>
               <div className="team-info-container">
                 <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
                 <div className="team-details">
@@ -91,23 +100,22 @@ const TeamPage = () => {
                   <p>Kraj pochodzenia: {teamInfo.area.name}</p>
                 </div>
               </div>
-              <div className="additional-info">
-                
-                
-                <p>Trener: {teamInfo.coach.name} </p>
-                <p>Narodowośc: {teamInfo.coach.nationality}</p> 
-                <p>Wiek: {calculateAge(teamInfo.coach.dateOfBirth)}</p>
-                
-              </div>
-              {renderPlayersTable()}
-            </div>
+              {renderButtons()}
+           {/* <div className="additional-info">
+              <p>Trener: {teamInfo.coach.name} </p>
+              <p>Narodowość: {teamInfo.coach.nationality}</p> 
+               <p>Wiek: {calculateAge(teamInfo.coach.dateOfBirth)}</p>
+              </div>*/}
+            </>
           ) : (
             <p>Loading team information...</p>
           )}
         </div>
+        <div className="team-container">
+          {renderPlayersTable()}
+        </div>
       </div>
     </div>
   );
-};
-
+          }
 export default TeamPage;
