@@ -4,11 +4,13 @@ import axios from 'axios';
 import Navbar from './Navbar';
 import './MatchPage.css';
 import { useTheme } from './ThemeContext';
+import Footer from './Footer';
 
 const MatchPage = () => {
   const [matchInfo, setMatchInfo] = useState(null);
   const { matchId } = useParams();
   const { isDarkMode } = useTheme();
+  const [teamLineups, setTeamLineups] = useState(null);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {
@@ -29,49 +31,82 @@ const MatchPage = () => {
       fetchMatchInfo();
     }
   }, [matchId]);
-
+  const loadTeamLineups = async () => {
+    try {
+      const response = await axios.get(`/v4/matches/${matchId}`, {
+        headers: {
+          'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
+        },
+      });
+      console.log("API Response Data:", response.data);
+      const lineups = {
+        homeTeam: response.data.match.homeTeam,
+        awayTeam: response.data.match.awayTeam,
+      };
+      setTeamLineups(lineups);
+    } catch (error) {
+      console.error('Error fetching team lineups:', error);
+    }
+  };
+  
   return (
     <div className={`team-page-container ${isDarkMode ? 'dark-mode' : ''}`}>
-      <Navbar />
-      <div className="team-container">
+      <Navbar className="custom"/>
+      <div className="team_container">
         {matchInfo ? (
           <div className="team-info-container">
             <div className="team-details">
             <div className="competition-container">
-              <h3>Competition: {matchInfo.competition.name}</h3>
-              <img className="team-crest" src={matchInfo.competition.emblem} alt={matchInfo.competition.name} />
+              <h3><b>{matchInfo.competition.name}, {new Date(matchInfo.utcDate).toLocaleDateString()}</b></h3>
             </div>
-
-
-              <div className="team-row">
+            <div className="team-row">
                 <div className="team-column">
-                  <h3>Home Team: {matchInfo.homeTeam.name}</h3>
                   <img className="team-crest" src={matchInfo.homeTeam.crest} alt={matchInfo.homeTeam.name} />
+                  <h3>{matchInfo.homeTeam.name}</h3>
+                </div>
+                <div className="team-score">
+                  <h3>{matchInfo.score.fullTime.home} - {matchInfo.score.fullTime.away}</h3>
                 </div>
                 <div className="team-column">
-                  <h3>Away Team: {matchInfo.awayTeam.name}</h3>
                   <img className="team-crest" src={matchInfo.awayTeam.crest} alt={matchInfo.awayTeam.name} />
+                  <h3>{matchInfo.awayTeam.name}</h3>
                 </div>
               </div>
-
-
-
-              <p>Data meczu: {new Date(matchInfo.utcDate).toLocaleDateString()}</p>
+              <div className="match-buttons-container">
+              <button className="match-button" onClick={loadTeamLineups}>SKŁADY</button>
+              <button className="match-button">STATYSTYKI</button>
+            </div>
+            {teamLineups && (
+                <div className="lineups-container">
+                  <div>
+                    <h3>Home Team: {teamLineups.homeTeam.name}</h3>
+                    {/* Lista zawodników drużyny gospodarzy */}
+                    {teamLineups.homeTeam.lineup.map(player => (
+                      <p key={player.id}>{player.name} - {player.position}</p>
+                    ))}
+                  </div>
+                  <div>
+                    <h3>Away Team: {teamLineups.awayTeam.name}</h3>
+                    {/* Lista zawodników drużyny gości */}
+                    {teamLineups.awayTeam.lineup.map(player => (
+                      <p key={player.id}>{player.name} - {player.position}</p>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div className="status-container">
+                <h3><b>Informacje o spotkaniu</b></h3>
+              </div>
               <p>Status: {matchInfo.status}</p>
               <p>Stadion: {matchInfo.venue}</p>
               <p>Sędzia: {matchInfo.referees[0].name}</p>
-              <p>Wynik po pierwszej połowie: {matchInfo.score.halfTime.home} - {matchInfo.score.halfTime.away}</p>
-              <p>Wynik po meczowy: {matchInfo.score.fullTime.home} - {matchInfo.score.fullTime.away}</p>
-
-              
-
-              <p>Winner: {matchInfo.winner ? matchInfo.winner === 'HOME_TEAM' ? matchInfo.homeTeam.name : matchInfo.awayTeam.name : 'Match Drawn'}</p>
             </div>
           </div>
         ) : (
-          <p>Loading match information...</p>
+          <p>Wczytywanie informacji o meczu...</p>
         )}
       </div>
+      <Footer/>
     </div>
   );
 };

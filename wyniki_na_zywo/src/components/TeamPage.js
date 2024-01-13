@@ -197,7 +197,7 @@ const TeamPage = () => {
               {teamInfo ? (
                 <>
                   <div className="team-info-container">
-                    <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
+                    <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crestx" />
                     <div className="team-details">
                       <h2><b>{teamInfo.name}</b></h2>
                       <p>Założony: {teamInfo.founded}</p>

@@ -1,28 +1,21 @@
-.team-container {
+.team_container{
     background-color: white;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 50%;
     margin-left: 5%;
-    margin-top: 5%;
-    min-width: 300px;
+    margin-top: 3%;
+    min-height: 750px;
   }
   .team-page-container {
     background-color: #DCDCDC;
   }
-  .team-info-container {
-    background-color: #DCDCDC; /* Taki sam jak kolor tła strony */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    margin-bottom: 20px; /* Dodaje odstęp przed listą zawodników */
-  }
+
   .team-crest {
-    width: 100px; /* Możesz dostosować rozmiar herbu */
-    height: auto;
-    margin-right: 20px; /* Odstęp między herbem a tekstem */
+    width: auto; /* Dostosuj szerokość zgodnie z potrzebami */
+    height: 100px;
+    margin-bottom: 10px; /* Odstęp między herbem a tekstem */
   }
   
   .team-details {
@@ -63,7 +56,7 @@ body.dark-mode .team-page-container {
   
 }
 
-body.dark-mode .team-info-container {
+body.dark-mode .team-info-containerx {
   background-color: #1a1f4a; /* Taki sam jak kolor tła strony w trybie ciemnym */
   border-radius: 10px;
   display: flex;
@@ -74,8 +67,8 @@ body.dark-mode .team-info-container {
 }
 
 body.dark-mode .team-crest {
-  width: 100px; /* Możesz dostosować rozmiar herbu */
-  height: auto;
+  width: auto; /* Możesz dostosować rozmiar herbu */
+  height: 100px;
   margin-right: 20px; /* Odstęp między herbem a tekstem */
   
 }
@@ -110,12 +103,72 @@ body.dark-mode .team-page-table {
   
   .team-row {
     display: flex;
-    justify-content: space-between; /* Rozdziela elementy równomiernie */
+    justify-content: space-around; /* Rozdziela elementy równomiernie */
     align-items: center;
   }
-  
   .team-column {
-    flex: 1; /* Każda kolumna zajmuje równą część przestrzeni */
+    flex: 1; /* Każda sekcja zajmuje równą część przestrzeni */
+    text-align: center; /* Wyśrodkowanie tekstu */
     padding: 0 10px; /* Dodanie odstępu */
+    display: flex; /* Ustawienie flex do wyrównania herbów i tekstu */
+    flex-direction: column; /* Układanie elementów pionowo */
+    justify-content: center; /* Wyśrodkowanie elementów pionowo */
+    align-items: center; /* Wyśrodkowanie elementów poziomo */
   }
   
+
+  .team-score {
+    flex: 0 0 auto; /* Zmiana flex-grow na 0, aby element nie rozciągał się */
+    text-align: center;
+    font-size: 35px; /* duży rozmiar czcionki dla wyniku */
+    padding: 0 20px; /* Dodanie odstępu po bokach wyniku */
+  }
+.competition-container {
+  background-color: #DCDCDC; /* Kolor tła */
+  border-radius: 10px; /* Zaokrąglone rogi */
+  padding: 5px 10px; /* Odpowiedni odstęp wewnątrz */
+  display: inline-block; /* Utrzymanie rozmiaru wokół tekstu */
+  margin-bottom: 30px;
+}
+
+.team-column, .team-score {
+  flex: 1; /* Każda sekcja zajmuje równą część przestrzeni */
+  text-align: center; /* Wyśrodkowanie tekstu */
+  padding: 0 10px; /* Dodanie odstępu */
+}
+.status-container {
+  background-color: #DCDCDC; /* Kolor tła */
+  border-radius: 10px; /* Zaokrąglone rogi */
+  padding: 5px 10px; /* Odpowiedni odstęp wewnątrz */
+  display: inline-block; /* Utrzymanie rozmiaru wokół tekstu */
+  margin-top: 30px; /* Zwiększony odstęp od góry */
+  margin-bottom: 10px; /* Odstęp od dołu */
+}
+.match-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-right: 10px;
+  border-radius: 8px;
+  background-color: #0D1282;
+  transition: background-color 0.3s, color 0.3s;
+  border: 2px solid transparent; /* Dodaj transparentne obramowanie */
+  cursor: pointer;
+  color: white;
+  width: 95px;
+}
+
+.match-button:hover {
+  background-color: white;
+  color: #0D1282;
+  border: 2px solid #0D1282;
+}
+
+.match-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px; /* Dodatkowy margines od góry */
+}
+
