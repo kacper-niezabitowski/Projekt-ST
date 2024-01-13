@@ -30,6 +30,8 @@
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 8px;
+  width: 110px;
+  border-radius: 8px;
 }
 
 .dark-mode .login-form {
