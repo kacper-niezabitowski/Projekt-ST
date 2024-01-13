@@ -12,6 +12,7 @@ import MenuIcon from '../img/menu.png';
 import MenuIcon2 from '../img/menu_2.png';
 import Logo from '../img/logo.png';
 import { useTheme } from './ThemeContext';
+import NightModeIcon from '../img/night-mode2.png';
 
 const Navbar = ({ openLoginForm, onTeamSelect }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -132,6 +133,7 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
         </div>
         
         <button onClick={toggleTheme} className="change-theme-button">
+        <img src={NightModeIcon} alt="Night Mode" className="icon" />
           Zmień tryb
         </button>
 

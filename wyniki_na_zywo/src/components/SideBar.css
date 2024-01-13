@@ -4,11 +4,11 @@
     margin-top: 10px; /* Odstęp od Navbar */
     /* Dodany odstęp od lewej krawędzi strony */
     /* Dalsze style według potrzeb */
-    text-align: center;
+    text-align: left;
     color: black;
     max-height: 450px;
     line-height: 2;
-    margin-left: 200px;
+    margin-left: 210px;
   }
   
   .body.dark-mode .sidebar-container {
