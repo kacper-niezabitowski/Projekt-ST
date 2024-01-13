@@ -7,11 +7,35 @@ import { useTheme } from './ThemeContext';
 
 const TeamPage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
+  const [currentSection, setCurrentSection] = useState('KADRA');
   const { teamId } = useParams();
   const { isDarkMode } = useTheme();
-
-  console.log("Team ID:", teamId);
-
+  const [teamMatches, setTeamMatches] = useState(null);
+  const handleSectionChange = (section) => {
+    setCurrentSection(section);
+    
+  };
+  const renderGroupTable = (group) => {
+    // Upewnij się, że struktura danych grupy jest poprawna
+    return (
+      <table className="match-table">
+        <thead>
+          <tr>
+            <th>Pozycja</th>
+            {/* ... pozostałe nagłówki ... */}
+          </tr>
+        </thead>
+        <tbody>
+          {group.table.map((team, index) => (
+            <tr key={team.team.id}>
+              <td>{team.position}</td>
+              {/* ... pozostałe dane drużyny ... */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  };
   useEffect(() => {
     const fetchTeamInfo = async () => {
       try {
@@ -20,7 +44,6 @@ const TeamPage = () => {
             'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
           },
         });
-
         setTeamInfo(response.data);
       } catch (error) {
         console.error('Error fetching team info:', error);
@@ -31,8 +54,26 @@ const TeamPage = () => {
       fetchTeamInfo();
     }
   }, [teamId]);
+  useEffect(() => {
+    const fetchTeamMatches = async () => {
+      try {
+        const matchesResponse = await axios.get(`/v4/teams/${teamId}/matches?status=SCHEDULED`, {
+          headers: {
+            'X-Auth-Token': 'ab6042f051914c4e902c15c42d59356b',
+          },
+        });
+        setTeamMatches(matchesResponse.data.matches);
+      } catch (error) {
+        console.error('Error fetching team matches:', error);
+      }
+    };
 
+    if (currentSection === 'MECZE') {
+      fetchTeamMatches();
+    }
+  }, [teamId, currentSection]);
   // Funkcja do obliczania wieku na podstawie daty urodzenia
+  
   const calculateAge = (birthDate) => {
     const today = new Date();
     const birthDateObj = new Date(birthDate);
@@ -64,7 +105,9 @@ const TeamPage = () => {
       case 'Forward':
         return 'Napastnik';
       case 'Offence':
-        return 'Atak';
+        return 'Napastnik';
+      case 'Midfielder':
+          return 'Pomocnik';
       default:
         return position;
     }
@@ -85,72 +128,95 @@ const TeamPage = () => {
         return nationalityTranslations[nationality] || nationality;
       };
 
-
-  
-  const renderButtons = () => {
-    return (
-      <div className="team-buttons">
-        <button className="team-button">Przycisk 1</button>
-        <button className="team-button">Przycisk 2</button>
-        <button className="team-button">Przycisk 3</button>
-      </div>
-    );
+      const renderButtons = () => {
+        return (
+          <div className="team-buttons">
+            <button className="team-button nav-item" onClick={() => handleSectionChange('KADRA')}>KADRA</button>
+            <button className="team-button nav-item" onClick={() => handleSectionChange('MECZE')}>MECZE</button>
+            <button className="team-button nav-item" onClick={() => handleSectionChange('TABELA')}>TABELA</button>
+          </div>
+        );
+      };
+ 
+      const renderPlayersTable = () => {
+        if (!teamInfo || !teamInfo.squad) {
+          return <p>No player data available.</p>;
+        }
+    
+        return (
+          <table className="team-page-table">
+            <tbody>
+              {teamInfo.squad.map((player) => (
+                <tr key={player.id}>
+                  <td>{player.name}</td>
+                  <td>{translatePosition(player.position)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
+      };
+      const renderMatchesTable = () => {
+        if (!teamMatches) {
+          return <p>No match data available.</p>;
+        }
+    
+        return (
+          <table className="team-page-table">
+            <tbody>
+              {teamMatches.map((match) => (
+                <tr key={match.id}>
+                  <td>{match.homeTeam.name} vs {match.awayTeam.name}</td>
+                  <td>{new Date(match.utcDate).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
+      };
+  // Funkcja renderująca zawartość sekcji
+  const renderSectionContent = () => {
+    switch (currentSection) {
+      case 'KADRA':
+        return renderPlayersTable();
+      case 'MECZE':
+        return renderMatchesTable();
+      case 'TABELA':
+        // Implementacja widoku tabeli
+        return <p>Widok tabeli</p>;
+      default:
+        return <p>Wybierz sekcję</p>;
+    }
   };
 
-  const renderPlayersTable = () => {
-    if (!teamInfo || !teamInfo.squad) {
-      return <p>No player data available.</p>;
+      return (
+        <div className={isDarkMode ? 'dark-mode' : ''}>
+          <Navbar />
+          <div className="team-page-container">
+            <div className="team-upper-container">
+              {teamInfo ? (
+                <>
+                  <div className="team-info-container">
+                    <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
+                    <div className="team-details">
+                      <h2><b>{teamInfo.name}</b></h2>
+                      <p>Założony: {teamInfo.founded}</p>
+                      <p>Strona internetowa: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a></p>
+                      <p>Kraj pochodzenia: {translateNationality(teamInfo.area.name)}</p>
+                    </div>
+                  </div>
+                  {renderButtons()}
+                </>
+              ) : (
+                <p>Loading team information...</p>
+              )}
+            </div>
+            <div className="team-container_2">
+              {renderSectionContent()}
+            </div>
+          </div>
+        </div>
+      );
     }
 
-    return (
-      <table className="team-page-table">
-        <tbody>
-          {teamInfo.squad.map((player) => (
-            <tr key={player.id}>
-              <td>{player.name}</td>
-              <td>{translatePosition(player.position)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  };
-
-
-  return (
-    <div className={isDarkMode ? 'dark-mode' : ''}>
-      <Navbar />
-      <div className="team-page-container">
-        <div className="team-upper-container">
-          {teamInfo ? (
-            <>
-              <div className="team-info-container">
-                <img src={teamInfo.crest} alt={`${teamInfo.name} Crest`} className="team-crest" />
-                <div className="team-details">
-                  <h2>{teamInfo.name}</h2>
-                  <p>Założony: {teamInfo.founded}</p>
-                  <p>
-                    Strona internetowa: <a href={teamInfo.website} target="_blank" rel="noopener noreferrer">{teamInfo.website}</a>
-                  </p>
-                  <p>Kraj pochodzenia: {translateNationality(teamInfo.area.name)}</p>
-                </div>
-              </div>
-              {renderButtons()}
-           {/* <div className="additional-info">
-              <p>Trener: {teamInfo.coach.name} </p>
-              <p>Narodowość: {teamInfo.coach.nationality}</p> 
-               <p>Wiek: {calculateAge(teamInfo.coach.dateOfBirth)}</p>
-              </div>*/}
-            </>
-          ) : (
-            <p>Loading team information...</p>
-          )}
-        </div>
-        <div className="team-container">
-          {renderPlayersTable()}
-        </div>
-      </div>
-    </div>
-  );
-          }
-export default TeamPage;
+    export default TeamPage;

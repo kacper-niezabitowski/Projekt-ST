@@ -11,9 +11,6 @@
   margin-left: 16px; /* Dodać margines z lewej strony */
 }
 
-
-
-
 .homepage-content {
   flex: 1; /* Reszta dostępnego miejsca dla treści */
   display: flex;

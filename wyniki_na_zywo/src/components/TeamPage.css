@@ -5,19 +5,22 @@
   background-color: #DCDCDC;
 }
 
-.team-container, .team-upper-container {
+.team-container_2, .team-upper-container {
   background-color: white;
   border-radius: 10px;
   padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  width: 50%; /* Taka sama szerokość */
-  min-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 45%; /* Taka sama szerokość */
+  min-width: 500px;
 }
+
 .team-upper-container {
   background-color: white;
   margin-top: 2%;
 }
-
+.team-container_2{
+  margin-top:2%;
+}
 .team-info-container{
   border-radius: 10px;
   padding: 20px;
@@ -49,7 +52,7 @@
 }
 
 /* Style dla trybu ciemnego */
-body.dark-mode .team-container, body.dark-mode .team-upper-container {
+body.dark-mode .team-container_2, body.dark-mode .team-upper-container {
   background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0px 4px 8px #1a1f4a;
 }
@@ -69,4 +72,55 @@ body.dark-mode .team-page-table td {
 }
 body {
   font-family: 'Rajdhani', sans-serif;
+}
+.team-button.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-right: 10px; /* Odstęp między ikonami */
+  border-radius: 8px; /* Zaokrąglone krawędzie */
+  background-color: #0D1282; /* Kolor tła przed zmianą */
+  transition: background-color 0.3s, color 0.3s; /* Animacja zmiany koloru */
+  border: none; /* Usunięcie obramowania */
+  cursor: pointer; /* Zmiana kursora na wskaźnik */
+  color: white; /* Kolor tekstu */
+  width:75px;
+  justify-content: center; /* Wycentrowanie poziome */
+  align-items: center; /* Wycentrowanie pionowe */
+  
+}
+
+.team-button.nav-item:hover {
+  background-color: white; /* Kolor tła podczas najechania kursorem */
+  color: #0D1282;
+  border: 2px solid #0D1282;
+  
+}
+.team-buttons {
+  display: flex; /* Ustawienie na flex */
+  align-items: center;
+  justify-content: flex-start; /* Ustawienie na flex-start, aby przyciski były w jednym rzędzie */
+}
+
+.team-button.nav-item {
+  margin-right: 10px; /* Odstęp między przyciskami */
+  border: 2px solid transparent;
+}
+.team-page-flex-container {
+  display: flex;
+  justify-content: space-between; /* Rozmieszcza elementy równomiernie */
+}
+
+.team-additional-container {
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  /* Dodatkowe style dla team-additional-container */
+}
+.team-page-main-container {
+  display: flex;
+  justify-content: start; /* Aby kontenery były wyrównane do lewej */
+  align-items: flex-start; /* Aby kontenery były wyrównane do góry */
+  gap: 20px; /* Odstęp pomiędzy kontenerami */
 }

@@ -132,7 +132,7 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
           </NavLink>
         ))}
       </div>
-
+          
       <button onClick={toggleTheme} className="change-theme-button">
         Zmień tryb
       </button>
