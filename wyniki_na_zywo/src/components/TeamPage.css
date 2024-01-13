@@ -15,16 +15,23 @@
 }
 
 .team-upper-container {
-  background-color: white;
-  margin-top: 2%;
+  background-color: white; /* Zmiana koloru tła */
+  border-radius: 10px; /* Zaokrąglone rogi */
+  padding: 10px; /* Dodaj padding dla lepszego wyglądu */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Cień dla głębi */
+  width: 45%; /* Szerokość */
+  min-width: 500px; /* Minimalna szerokość */
+  margin-top: 2%; /* Górny margines */
 }
 .team-container_2{
   margin-top:2%;
 }
-.team-info-container{
-  border-radius: 10px;
-  padding: 20px;
-  background-color: white;
+.team-info-container {
+  background-color: #DCDCDC; /* Zmiana koloru tła na #DCDCDC */
+  border-radius: 10px; /* Zaokrąglone rogi */
+  padding: 20px; /* Padding */
+  display: flex; /* Ustawienie flex dla lepszego rozmieszczenia elementów */
+  align-items: center; /* Wyśrodkowanie elementów w pionie */
 }
 
 .team-crestx {
@@ -135,4 +142,20 @@ body {
 .team-info-content {
   display: flex;
   align-items: center; /* Wyśrodkowanie zawartości w pionie */
+}
+.team-page-container .team-upper-container {
+  background-color: white; /* Szary kolor tła */
+  border-radius: 10px; /* Zaokrąglone rogi */
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 45%;
+  min-width: 500px;
+  margin-top: 2%;
+}
+.team-page-container .team-upper-container .team-info-container {
+  background-color: #DCDCDC; /* Szary kolor tła dla kontenera z informacjami */
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
 }

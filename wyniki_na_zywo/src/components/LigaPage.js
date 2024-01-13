@@ -282,7 +282,6 @@ const LeaguePage = () => {
             <button style={buttonStyle} onClick={() => filterMatches('all')}>Wszystkie</button>
             <button style={buttonStyle} onClick={() => filterMatches('finished')}>Ukończone</button>
             <button style={buttonStyle} onClick={() => filterMatches('scheduled')}>Zaplanowane</button>
-            <button style={buttonStyle} onClick={() => filterMatches('timed')}>Timed</button>
             <button style={buttonStyle} onClick={() => filterMatches('postponed')}>Przełożone</button>
                 {/* Add more buttons as needed */}
                 
@@ -338,27 +337,34 @@ const LeaguePage = () => {
     <div>
       <Navbar />
       <div className="container">
-        <div className="logo" style={{ textAlign: 'center' }}>
-          <img src={`https://crests.football-data.org/${leagueLogoPath}`} alt={`${leagueId} logo`} />
-        </div>
-        <div className="category-buttons">
-          <button className="buttonStyle" onClick={() => setSelectedView('table')}>
-            Tabela
-          </button>
-          <button className="buttonStyle" onClick={() => setSelectedView('stats')}>
-            Statystyki
-          </button>
-          
-          <button className="buttonStyle" onClick={() => setSelectedView('matches')}>
-            Mecze
-          </button>
-          
+        <div className="league-info-container"> {/* Dodany kontener */}
+        <div className="logo-container">
+          <div className="logo" style={{ textAlign: 'center' }}>
+            <img src={`https://crests.football-data.org/${leagueLogoPath}`} alt={`${leagueId} logo`} />
+          </div>
+          <div className="league-details">
+    <div className="league-name">Bundesliga</div>
+    <div className="league-country">Niemcy</div>
+    <div className="league-season">2023/2024</div>
+  </div>
+          </div>
+          <div className="category-buttons">
+            <button className="buttonStyle" onClick={() => setSelectedView('table')}>
+              Tabela
+            </button>
+            <button className="buttonStyle" onClick={() => setSelectedView('stats')}>
+              Statystyki
+            </button>
+            <button className="buttonStyle" onClick={() => setSelectedView('matches')}>
+              Mecze
+            </button>
+          </div>
         </div>
         
         {renderView()}
       </div>
     </div>
   );
-};
+}
 
 export default LeaguePage;
