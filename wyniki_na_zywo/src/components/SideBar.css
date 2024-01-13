@@ -1,6 +1,5 @@
 .sidebar-container {
     width: 200px; /* Dostosuj szerokość według potrzeb */
-    background-color: lightgray; /* Jasnoszare tło */
     border-radius: 10px; /* Zaokrąglone rogi */
     margin-top: 10px; /* Odstęp od Navbar */
     margin-left: 10px; /* Dodany odstęp od lewej krawędzi strony */
@@ -11,17 +10,16 @@
     line-height: 2;
   }
   
-.body.dark-mode .sidebar-container {
-    width: 200px; /* Dostosuj szerokość według potrzeb */
-    background-color: rgba(255, 255, 255, 0.1);; /* Jasnoszare tło */
-    border-radius: 10px; /* Zaokrąglone rogi */
-    margin-top: 10px; /* Odstęp od Navbar */
-    margin-left: 10px; /* Dodany odstęp od lewej krawędzi strony */
-    /* Dalsze style według potrzeb */
+  .body.dark-mode .sidebar-container {
+    width: 200px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
     text-align: center;
-    color: white;
+    color: white; /* Zmieniony kolor tekstu na biały */
     box-shadow: 0px 4px 8px #1a1f4a;
 }
+
   
 .sidebar-header {
     width: 200px; /* Dostosuj szerokość według potrzeb */
@@ -38,5 +36,10 @@
     
   }
 
+
+  .body.dark-mode .sidebar-container ul li a {
+    color: white !important;
+  }
+  
  
   

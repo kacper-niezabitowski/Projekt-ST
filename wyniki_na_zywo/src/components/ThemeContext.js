@@ -11,6 +11,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("Setting dark-mode:", isDarkMode);
     document.body.classList.toggle('dark-mode', isDarkMode);
   }, [isDarkMode]);
 

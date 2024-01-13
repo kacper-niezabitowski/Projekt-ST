@@ -59,6 +59,7 @@ const Sidebar = () => {
   };
 
   return (
+    
     <div className={isDarkMode ? 'dark-mode' : ''}>
       <div className="sidebar-container"> 
         <div>
@@ -66,7 +67,7 @@ const Sidebar = () => {
           <ul>
             {leagues.map(league => (
               <li key={league.name}>
-                <Link to={league.path}>{league.name}</Link>
+                <Link to={league.path} style={{ color: isDarkMode ? 'white' : 'black' }}>{league.name}</Link>
               </li>
             ))}
           </ul>
