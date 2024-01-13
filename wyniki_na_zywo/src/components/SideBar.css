@@ -2,12 +2,13 @@
     width: 200px; /* Dostosuj szerokość według potrzeb */
     border-radius: 10px; /* Zaokrąglone rogi */
     margin-top: 10px; /* Odstęp od Navbar */
-    margin-left: 10px; /* Dodany odstęp od lewej krawędzi strony */
+    /* Dodany odstęp od lewej krawędzi strony */
     /* Dalsze style według potrzeb */
     text-align: center;
     color: black;
     max-height: 450px;
     line-height: 2;
+    margin-left: 200px;
   }
   
   .body.dark-mode .sidebar-container {
@@ -37,9 +38,14 @@
   }
 
 
-  .body.dark-mode .sidebar-container ul li a {
-    color: white !important;
+  .sidebar-container ul li a {
+    color: white; /* Domyślny kolor tekstu */
   }
+  
+  .body.dark-mode .sidebar-container ul li a {
+    color: white; /* Kolor tekstu w trybie ciemnym */
+  }
+  
   
  
   

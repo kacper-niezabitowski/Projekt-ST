@@ -78,7 +78,8 @@ const FootballDataComponent = () => {
   };
 
   return (
-    <div style={{ color: isDarkMode ? 'white' : 'black' }}>
+    <div style={{ color: isDarkMode ? 'white' : 'black',
+    marginRight: '200px' }}>
       
 
       {/* Przyciski do filtrowania */}

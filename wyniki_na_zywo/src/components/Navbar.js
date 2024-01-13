@@ -56,8 +56,6 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
         return hoveredIcon === 'home' ? HomeIcon2 : HomeIcon;
       case 'login':
         return hoveredIcon === 'login' ? LoginIcon2 : LoginIcon;
-      case 'settings':
-        return hoveredIcon === 'settings' ? SettingsIcon2 : SettingsIcon;
       case 'menu':
         return isMobileMenuOpen ? MenuIcon2 : MenuIcon;
       default:
@@ -117,37 +115,38 @@ const Navbar = ({ openLoginForm, onTeamSelect }) => {
           )}
         </div>
       </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginRight: '200px' }}>
+        <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+          {navLinks.map((link) => (
+            <NavLink to={link.href} key={link.name}>
+              <div
+                className="nav-item"
+                onMouseEnter={() => setHoveredIcon(link.name)}
+                onMouseLeave={() => setHoveredIcon('')}
+              >
+                <img src={getIcon(link.name)} alt={link.name} className="icon" />
+                <span>{link.label}</span>
+              </div>
+            </NavLink>
+          ))}
+        </div>
+        
+        <button onClick={toggleTheme} className="change-theme-button">
+          Zmień tryb
+        </button>
 
-      <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-        {navLinks.map((link) => (
-          <NavLink to={link.href} key={link.name}>
-            <div
-              className="nav-item"
-              onMouseEnter={() => setHoveredIcon(link.name)}
-              onMouseLeave={() => setHoveredIcon('')}
-            >
-              <img src={getIcon(link.name)} alt={link.name} className="icon" />
-              <span>{link.label}</span>
-            </div>
-          </NavLink>
-        ))}
+        <div className="menu-icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <img src={getIcon('menu')} alt="Menu" />
+        </div>
       </div>
-          
-      <button onClick={toggleTheme} className="change-theme-button">
-        Zmień tryb
-      </button>
 
-      <div className="menu-icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-        <img src={getIcon('menu')} alt="Menu" />
-      </div>
-    </header>
-  );
+          </header>
+        );
 };
 
 const navLinks = [
   { name: 'home', label: 'Strona Domowa', href: '/home' },
   { name: 'login', label: 'Zaloguj', href: '/login' },
-  { name: 'settings', label: 'Ustawienia', href: '/settings' },
-];
+  ];
 
 export default Navbar;

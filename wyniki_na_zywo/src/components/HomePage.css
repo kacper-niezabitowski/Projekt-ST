@@ -8,7 +8,7 @@
 .sidebar {
   flex: 0 0 200px;
   margin-top: 16px; /* Dodać margines od góry, aby oddzielić od Navbar */
-  margin-left: 16px; /* Dodać margines z lewej strony */
+  
 }
 
 .homepage-content {
