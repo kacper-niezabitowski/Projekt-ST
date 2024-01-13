@@ -28,7 +28,7 @@ const RegisterForm = ({ onRegister }) => {
     <div className={isDarkMode ? 'dark-mode' : ''}>
       <div>
         <Navbar />
-        <div className="login-form">
+        <div className="register-form">
         <label htmlFor="username">Username:</label>
           <input
             type="text"

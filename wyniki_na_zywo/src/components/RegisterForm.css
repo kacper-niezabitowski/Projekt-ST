@@ -1,22 +1,16 @@
-/* Add styling for the registration form */
-
-/* Add styling for the registration form */
-
-/* Add styling for the registration form */
-
+/* Add styling for the register form */
 .register-form {
-  position: relative;
-  margin-top: 50%;
-  transform: translateY(-50%);
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 20px;
   background-color: white;
-  box-shadow: 0px 0px 10px  #0D1282;
+  box-shadow: 0px 0px 10px #0D1282;
   z-index: 999; /* Ensure the modal is above other elements */
   text-align: center;
-  width: 300px; /* Adjust the width according to your design */
+  width: 350px;
 }
-
-
 
 .register-form label {
   display: block;
@@ -24,9 +18,10 @@
 }
 
 .register-form input {
-  width: 100%;
+  width: 70%;
   padding: 8px;
   margin-bottom: 16px;
+  box-shadow: 0px 0px 10px #0D1282;
 }
 
 .register-form button {
@@ -37,30 +32,10 @@
   margin-top: 8px;
 }
 
-.register-form a {
-  color: #0D1282;
-}
-
-.scroll-slider {
-  position: fixed;
-  top: 50%; /* Adjust the top position as needed */
-  right: 0; /* Adjust the right position as needed */
-  width: 20px; /* Adjust the width as needed */
-  height: 100vh; /* Takes the full height of the viewport */
-  background-color: #ccc; /* Adjust the background color as needed */
-  z-index: 998; /* Ensure it's below the register form but above other elements */
-}
-
-.scroll-slider input {
-  width: 100%;
-  height: 100%;
-  transform: rotate(270deg);
-  transform-origin: 0 0;
-  appearance: slider-vertical;
-}
-
 .dark-mode .register-form {
   background-color: rgba(255, 255, 255, 0.008);;
   color: white;
-  box-shadow: 0px 0px 10px white;
+  box-shadow: 0px 0px 10px #0D1282;
 }
+
+/* Add styling for other dark mode elements if needed */
