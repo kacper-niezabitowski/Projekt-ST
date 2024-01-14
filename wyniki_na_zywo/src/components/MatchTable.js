@@ -16,7 +16,7 @@ const translateStatus = (status) => {
     case 'POSTPONED':
       return 'Przełożony';
     case 'TIMED':
-      return 'timed';
+      return 'Zaplanowany';
     
     default:
       return status;

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from './Navbar';
 import './TeamPage.css';
 import { useTheme } from './ThemeContext';
+import PlayerModal from './PlayerModal';
 
 const TeamPage = () => {
   const [teamInfo, setTeamInfo] = useState(null);
@@ -12,9 +13,17 @@ const TeamPage = () => {
   const { isDarkMode } = useTheme();
   const [teamMatches, setTeamMatches] = useState(null);
   const handleSectionChange = (section) => {
-    setCurrentSection(section);
-    
+    setCurrentSection(section);  };
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+
+  const openModal = (player) => {
+    setSelectedPlayer(player);
   };
+
+  const closeModal = () => {
+    setSelectedPlayer(null);
+  };
+
   const renderGroupTable = (group) => {
     // Upewnij się, że struktura danych grupy jest poprawna
     return (
@@ -148,7 +157,11 @@ const TeamPage = () => {
             <tbody>
               {teamInfo.squad.map((player) => (
                 <tr key={player.id}>
-                  <td>{player.name}</td>
+                  <td>
+                <button onClick={() => openModal(player)}>
+                  {player.name}
+                </button>
+              </td>
                   <td>{translatePosition(player.position)}</td>
                 </tr>
               ))}
@@ -214,6 +227,9 @@ const TeamPage = () => {
             <div className="team-container_2">
               {renderSectionContent()}
             </div>
+            {selectedPlayer && (
+              <PlayerModal player={selectedPlayer} teamInfo={teamInfo} closeModal={closeModal} />
+            )}
           </div>
         </div>
       );

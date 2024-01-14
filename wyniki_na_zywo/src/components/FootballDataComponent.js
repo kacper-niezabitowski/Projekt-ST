@@ -92,7 +92,7 @@ const FootballDataComponent = () => {
         setFilteredMatches(matches.filter((match) => match.status === 'FINISHED'));
         break;
       case 'scheduled':
-        setFilteredMatches(matches.filter((match) => match.status === 'SCHEDULED'));
+        setFilteredMatches(matches.filter((match) => match.status === 'SCHEDULED'||match.status === 'TIMED'));
         break;
       case 'today':
         const todayMatches = matches.filter((match) => {
@@ -100,9 +100,6 @@ const FootballDataComponent = () => {
           return match.utcDate.split('T')[0] === today;
         });
         setFilteredMatches(todayMatches);
-        break;
-      case 'timed':
-        setFilteredMatches(matches.filter((match) => match.status === 'TIMED'));
         break;
       case 'postponed':
         setFilteredMatches(matches.filter((match) => match.status === 'POSTPONED'));
@@ -152,9 +149,6 @@ const FootballDataComponent = () => {
           </button>
           <button style={buttonStyle} onClick={() => filterMatches('scheduled')}>
             Zaplanowane
-          </button>
-          <button style={buttonStyle} onClick={() => filterMatches('timed')}>
-            Timed
           </button>
           <button style={buttonStyle} onClick={() => filterMatches('postponed')}>
             Przełożone
